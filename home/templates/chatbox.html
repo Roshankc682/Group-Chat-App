@@ -1,0 +1,136 @@
+
+
+<div class="col col-md-10 col-lg-9 col-xl-8 mx-auto my-auto">
+  <div class="card my-1 msgcard">
+    <div class="card-body">
+      <div class="container-fluid">
+        <div id="messages_container" class="chat-log">
+
+          
+          
+            
+  
+          
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+
+
+<script>
+ //message
+
+
+var username_logged  = String("{{username}}")
+
+  axios.get(
+            "/message_return",
+            ).then(res =>{
+                    
+                 message_data(res.data)
+                  
+                }).catch(error => {
+                    alert("something went wrong")
+                });
+
+
+
+function message_data(res){
+ 
+                  if(res.length == 0)
+                   {
+                            var div_tag = '<center>Now you can chat</center>';
+                            var div = document.getElementsByClassName("chat-log");
+                            div[0].innerHTML += div_tag;
+                            
+                   }
+                    for (let i = 0; i < res.length; i++) {  
+                         if(username_logged.localeCompare(res[i]["username"]) === 0)
+                         {
+                            
+                             var div_tag = '<div class="chat-log_item chat-log_item-own z-depth-0"><div class="row justify-content-end mx-1 d-flex"><div class="col-auto px-0"><span class="chat-log_author">'+res[i]["username"]+'</span></div><div class="col-auto px-0"></div></div><div class="chat-log_message_'+i+'" id="add_pargraph_classname"></div><div class="row chat-log_time m-0 p-0 justify-content-end"><p>'+res[i]["time"].slice(11, 16)+'</p></div></div>';
+
+                            var div = document.getElementsByClassName("chat-log");
+                            div[0].innerHTML += div_tag;
+                            var add_pargraph = document.createElement("p"); 
+                            var text_to_add = document.createTextNode(res[i]["message"]);  
+                            add_pargraph.appendChild(text_to_add);
+                            var name = '.chat-log_message_'+i
+                            var attach_to = document.querySelector(name);
+                            attach_to.appendChild(add_pargraph);
+
+
+                         }else{
+                        
+                            var div_tag_logged = '<div class="chat-log_item chat-log_item z-depth-0"><div class="row justify-content-end mx-1 d-flex"><div class="col-auto px-0"><span class="chat-log_author">'+res[i]["username"]+'</span></div><div class="col-auto px-0"></div></div><div class="chat-log_message_'+i+'"></div><div class="row chat-log_time m-0 p-0 justify-content-end">'+res[i]["time"].slice(11, 16)+'</div></div>';
+                            var div = document.getElementsByClassName("chat-log");
+                            div[0].innerHTML += div_tag_logged;
+                            var add_pargraph = document.createElement("p"); 
+                            var text_to_add = document.createTextNode(res[i]["message"]);  
+                            add_pargraph.appendChild(text_to_add);
+                            var name = '.chat-log_message_'+i
+                            var attach_to = document.querySelector(name);
+                            attach_to.appendChild(add_pargraph);
+                           
+                         }
+                    }
+}
+var url = "ws://localhost:8000/ws/message_recieve/"
+var socket = new WebSocket(url);
+    
+ socket.onopen = function(e){
+    }
+ socket.onmessage = function(e){
+      var data = JSON.parse(e.data)
+      socket_data(data)
+     // console.log(data.username)
+    //  console.log(data.message)
+    //  console.log(data.time)
+    
+    }
+
+socket.onclose = function(e){
+      console.log("socket disconnected")
+    }
+
+
+
+
+  function socket_data(data){
+
+      let i = (Math.random() + 1).toString(36).substring(7);
+      if(username_logged.localeCompare(data["username"]) === 0){
+         var div_tag = '<div class="chat-log_item chat-log_item-own z-depth-0"><div class="row justify-content-end mx-1 d-flex"><div class="col-auto px-0"><span class="chat-log_author">'+data["username"]+'</span></div><div class="col-auto px-0"></div></div><div class="chat-log_message_'+i+'" id="add_pargraph_classname"></div><div class="row chat-log_time m-0 p-0 justify-content-end"><p>'+data["time"]+'</p></div></div>';
+
+          var div = document.getElementsByClassName("chat-log");
+          div[0].innerHTML += div_tag;
+          var add_pargraph = document.createElement("p"); 
+          var text_to_add = document.createTextNode(data["message"]);  
+          add_pargraph.appendChild(text_to_add);
+          var name = '.chat-log_message_'+i
+          var attach_to = document.querySelector(name);
+          attach_to.appendChild(add_pargraph);
+    }
+    else{
+      var div_tag_logged = '<div class="chat-log_item chat-log_item z-depth-0"><div class="row justify-content-end mx-1 d-flex"><div class="col-auto px-0"><span class="chat-log_author">'+data["username"]+'</span></div><div class="col-auto px-0"></div></div><div class="chat-log_message_'+i+'"></div><div class="row chat-log_time m-0 p-0 justify-content-end">'+data["time"]+'</div></div>';
+      var div = document.getElementsByClassName("chat-log");
+      div[0].innerHTML += div_tag_logged;
+      var add_pargraph = document.createElement("p"); 
+      var text_to_add = document.createTextNode(data["message"]);  
+      add_pargraph.appendChild(text_to_add);
+      var name = '.chat-log_message_'+i
+      var attach_to = document.querySelector(name);
+      attach_to.appendChild(add_pargraph);
+    }
+
+  }
+</script>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <style>
+  .center {
+        margin: auto;
+        width: 40%;
+        border: 3px solid green;
+        padding: 10px;
+        }
+        .btn{
+          width: 100%;
+        }
+        .avatar {
+          vertical-align: middle;
+          width: 100px;
+          height: 90px;
+          border-radius: 60%;
+        }
+  </style>
+    </head>
+    <body>
+ <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Register | Username</title>
+  </head>
+  <body>
+<br><br><br>
+  <div class="alert alert-primary center" role="alert">
+  
+
+
+    <form method="POST" action="/username">
+   
+     <center><label for="exampleInputEmail1"><b>Behold the Chatting Room from heaven
+      <br>Register user to go Heaven</b></label><br>
+      <img src="/static/prop.png" alt="Avatar" class="avatar"><br>
+
+    {% if error %}<br>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <center><strong>Holy Mother of God</strong>
+      <b>{{ error }}</b></center>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} 
+   
+      <center>
+       {% csrf_token %}<br>
+    <div class="form-group">
+     
+       {{ context.as_p }}  
+         </div><br>
+    <button type="submit" class="btn btn-primary">Register</button><br><br>
+    <a href="/login"  class="btn btn-info">Login</a>
+  </form>
+  
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    </body>
+
+</html>
