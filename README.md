@@ -15,6 +15,10 @@ This is repo of socket in Django where registered user can chat in group
 
 ## Interface :
 
+  ![Alt Text](https://github.com/Roshankc682/Group-Chat-App/blob/main/ezgif.com-gif-maker.gif)
+
+
+
   **Register :**
   <img src="https://github.com/Roshankc682/Group-Chat-App/blob/main/Register.png" width="100%" height="100%">  
 
