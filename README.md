@@ -12,6 +12,7 @@ This is repo of socket in Django where registered user can chat in group
 
 >python manage.py collectstatic
 
+> Don't forget to run redis server cli 
 
 ## Interface :
 
